@@ -4,7 +4,6 @@ from loguru import logger
 from PIL import Image
 import json
 import time
-import os
 
 the_timestamp = int(time.time())
 
@@ -24,14 +23,14 @@ class Screen_shot:
         # self.chrome_options.add_extension('ublock_origin.crx')
         self.driver = webdriver.Chrome(options=self.chrome_options)
 
-    def Full_screenshot(self, url, save_path='', image_name=f'{the_timestamp}.png'):
+    def Full_screenshot(self, url, save_path='.', image_name=f'{the_timestamp}.png'):
         logger.info('Starting chrome full page screenshot Capturing ...')
         self.driver.get(url)
         time.sleep(2)
         # save screenshot
-        abs_save_path = os.path.abspath(save_path + '/' + image_name)
-        self.driver.save_screenshot(abs_save_path)
-        return abs_save_path
+        path = save_path + '/' + image_name
+        self.driver.save_screenshot(path)
+        return path
 
     def End_selenium(self):
         self.driver.close()
